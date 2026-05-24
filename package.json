@@ -25,7 +25,9 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/user-event": "^14.0.0",
-    "jsdom": "^23.0.0"
+    "jsdom": "^23.0.0",
+    "@tailwindcss/aspect-ratio": "latest",
+    "@tailwindcss/typography": "latest"
   },
   "scripts": {
     "dev": "vite",

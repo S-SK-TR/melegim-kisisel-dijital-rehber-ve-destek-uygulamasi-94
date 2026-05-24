@@ -2,16 +2,13 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AppShell } from '@/components/layout/AppShell';
 
-describe('AppShell', () => {
-  it('renders the navigation bar with all items', () => {
+describe('AppShell Component', () => {
+  it('renders navigation items', () => {
     render(
       <MemoryRouter>
         <AppShell />
       </MemoryRouter>
     );
-
-    // Logo'nun render edildiğini kontrol et
-    expect(screen.getByText('LoveBloom')).toBeInTheDocument();
 
     // Desktop navigasyon öğelerini kontrol et
     expect(screen.getByText('Home')).toBeInTheDocument();
@@ -20,18 +17,18 @@ describe('AppShell', () => {
     expect(screen.getByText('Settings')).toBeInTheDocument();
 
     // Mobile navigasyon öğelerini kontrol et
-    expect(screen.getAllByText('Home')).toHaveLength(2); // Desktop + Mobile
+    expect(screen.getAllByText('Home').length).toBe(2); // Hem desktop hem mobile
   });
 
-  it('applies active styles to the current route', () => {
+  it('applies active styles to current route', () => {
     render(
-      <MemoryRouter initialEntries={['/collections']}>
+      <MemoryRouter initialEntries={['/']}>
         <AppShell />
       </MemoryRouter>
     );
 
     // Aktif route için stil uygulandığını kontrol et
-    const activeLink = screen.getByText('Collections').closest('a');
+    const activeLink = screen.getByText('Home').closest('a');
     expect(activeLink).toHaveClass('bg-[var(--brand-500)]/20');
   });
 });

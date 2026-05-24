@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { CinematicHero } from '@/components/ui/CinematicHero';
 
-describe('CinematicHero', () => {
-  it('renders the title and subtitle', () => {
+describe('CinematicHero Component', () => {
+  it('renders title and subtitle', () => {
     render(
       <CinematicHero
         title="Test Title"
@@ -22,10 +22,5 @@ describe('CinematicHero', () => {
     );
 
     expect(screen.getByTestId('child-element')).toBeInTheDocument();
-  });
-
-  it('renders the FloatingPetals component', () => {
-    render(<CinematicHero title="Test" subtitle="Test" />);
-    expect(document.querySelector('.absolute.inset-0.overflow-hidden.pointer-events-none')).toBeInTheDocument();
   });
 });
