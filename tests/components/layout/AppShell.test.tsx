@@ -2,28 +2,36 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AppShell } from '@/components/layout/AppShell';
 
-const TestComponent = () => <div>Test Content</div>;
-
 describe('AppShell', () => {
-  it('renders navigation items', () => {
+  it('renders the navigation bar with all items', () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
+      <MemoryRouter>
         <AppShell />
       </MemoryRouter>
     );
+
+    // Logo'nun render edildiğini kontrol et
+    expect(screen.getByText('LoveBloom')).toBeInTheDocument();
+
+    // Desktop navigasyon öğelerini kontrol et
     expect(screen.getByText('Home')).toBeInTheDocument();
     expect(screen.getByText('Collections')).toBeInTheDocument();
-    expect(screen.getByText('About')).toBeInTheDocument();
+    expect(screen.getByText('Shop')).toBeInTheDocument();
+    expect(screen.getByText('Settings')).toBeInTheDocument();
+
+    // Mobile navigasyon öğelerini kontrol et
+    expect(screen.getAllByText('Home')).toHaveLength(2); // Desktop + Mobile
   });
 
-  it('renders children content', () => {
+  it('applies active styles to the current route', () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <AppShell>
-          <TestComponent />
-        </AppShell>
+      <MemoryRouter initialEntries={['/collections']}>
+        <AppShell />
       </MemoryRouter>
     );
-    expect(screen.getByText('Test Content')).toBeInTheDocument();
+
+    // Aktif route için stil uygulandığını kontrol et
+    const activeLink = screen.getByText('Collections').closest('a');
+    expect(activeLink).toHaveClass('bg-[var(--brand-500)]/20');
   });
 });

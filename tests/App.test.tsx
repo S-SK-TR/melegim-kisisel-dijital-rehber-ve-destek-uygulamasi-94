@@ -3,22 +3,35 @@ import { MemoryRouter } from 'react-router-dom';
 import App from '@/App';
 
 describe('App', () => {
-  it('renders home page with cinematic hero', () => {
+  it('renders the AppShell with Routes', () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
+      <MemoryRouter>
         <App />
       </MemoryRouter>
     );
+
+    // AppShell bileşeninin render edildiğini kontrol et
+    expect(screen.getByText('LoveBloom')).toBeInTheDocument();
+
+    // Ana sayfanın render edildiğini kontrol et
     expect(screen.getByText('Love in Bloom')).toBeInTheDocument();
-    expect(screen.getByText(/Experience the beauty of romance/)).toBeInTheDocument();
+    expect(screen.getByText('Experience the beauty of romance through our premium collection of red roses and heartfelt designs.')).toBeInTheDocument();
   });
 
-  it('renders three glass cards on home page', () => {
+  it('renders the HomePage with all components', () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
+      <MemoryRouter>
         <App />
       </MemoryRouter>
     );
-    expect(screen.getAllByText(/Premium Bouquet/)).toHaveLength(3);
+
+    // CinematicHero bileşeninin render edildiğini kontrol et
+    expect(screen.getByText('Love in Bloom')).toBeInTheDocument();
+
+    // GlassCard bileşenlerinin render edildiğini kontrol et
+    expect(screen.getAllByText(/Premium Bouquet/i)).toHaveLength(3);
+
+    // SoftParticles bileşeninin render edildiğini kontrol et
+    expect(document.querySelector('.absolute.inset-0.overflow-hidden.pointer-events-none')).toBeInTheDocument();
   });
 });
